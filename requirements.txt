@@ -1,0 +1,11 @@
+transformers
+torch
+accelerate
+sentence-transformers
+faiss-cpu
+rank-bm25
+serpapi
+langchain
+fastapi
+uvicorn
+python-dotenv

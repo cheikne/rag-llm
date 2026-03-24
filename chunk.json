@@ -1,0 +1,27 @@
+
+[
+  {
+    "chunk_id": 1,
+    "document_id": "mit_ml_lecture5",
+    "text": "Overfitting occurs when a model learns the training data too well, including noise.",
+    "embedding": [0.21, -0.44, 0.13, 0.88],
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "Introduction to Machine Learning",
+      "lecture": "Lecture 5",
+      "topic": "Overfitting"
+    }
+  },
+  {
+    "chunk_id": 2,
+    "document_id": "mit_ml_lecture5",
+    "text": "Regularization methods such as L1 and L2 help prevent overfitting.",
+    "embedding": [0.15, -0.30, 0.66, -0.20],
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "Introduction to Machine Learning",
+      "lecture": "Lecture 5",
+      "topic": "Regularization"
+    }
+  }
+]
