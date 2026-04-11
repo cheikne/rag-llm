@@ -34,12 +34,12 @@ class GoogleSearchAPI:
                 return res
             return {}
 
-    def search(self, query, num_results=5):
+    def retrieve(self, query, k=5):
         params = {
             "engine": "google",
             "q": query,
             "api_key": self.api_key,
-            "num": num_results,
+            "num": k,
         }
 
         results = self._call_search(params)
@@ -48,7 +48,7 @@ class GoogleSearchAPI:
 
         # Extraire les snippets des résultats organiques
         if isinstance(results, dict) and "organic_results" in results:
-            for res in results["organic_results"][:num_results]:
+            for res in results["organic_results"][:k]:
                 snippet = res.get("snippet", "")
                 if snippet:
                     snippets.append(snippet)

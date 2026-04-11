@@ -36,3 +36,4 @@ source ~/.zshrc
 
 # Run the Project
 python main.py
+<!-- gemma:7b -->
