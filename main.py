@@ -3,7 +3,7 @@ from rag.pipeline_rag import RAGPipeline
 from retrieval.google_search import GoogleSearchAPI
 from retrieval.bm25_retriever import BM25Retriever
 from retrieval.dense_retriever import DenseRetriever
-import json, os
+import json, os, time
 
 def clean_output(text):
     if "Answer:" in text:
@@ -68,11 +68,19 @@ def main():
 
         # Run the pipeline with the selected retriever
         # Note: we pass k=3 to limit context size for the M3 RAM
+        # added more lines for time to be calculated
+        start_total = time.perf_counter()
+
         answer = rag.run(query, retriever=retriever, k=3)
+
+        total_time = time.perf_counter() - start_total
+
+
         
         print(f"\n========================= ANSWER ({method.upper()}) =====================")
         print(clean_output(answer))
         print("================================================================")
+        print(f"\nTotal Time ({method.upper()}): {total_time:.6f} sec")
 
 if __name__ == "__main__":
     main()

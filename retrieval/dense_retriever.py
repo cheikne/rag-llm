@@ -3,6 +3,7 @@ import faiss
 from .base_retriever import BaseRetriever
 from sentence_transformers import SentenceTransformer
 import torch
+import time
 
 class DenseRetriever(BaseRetriever):
     def __init__(self, json_data, model_name='BAAI/bge-base-en-v1.5'):
@@ -35,6 +36,8 @@ class DenseRetriever(BaseRetriever):
         self.index.add(embeddings)
 
     def retrieve(self, query, k=5):
+        start = time.perf_counter()  
+
         # Encode query with BGE instruction
         instruction = "Represent this sentence for searching relevant passages: "
         query_embedding = self.model.encode([instruction + query]).astype('float32')
@@ -44,4 +47,7 @@ class DenseRetriever(BaseRetriever):
         distances, indices = self.index.search(query_embedding, k)
         
         results = [self.data[i] for i in indices[0] if i != -1]
-        return results
+
+        elapsed = time.perf_counter() - start  
+
+        return results, elapsed 

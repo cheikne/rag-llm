@@ -62,7 +62,8 @@ Answer:
         Modified to accept any retriever (BM25, Dense, Google, Hybrid)
         """
         # 1. Retrieve (Works with any class following our BaseRetriever design)
-        results = retriever.retrieve(query, k=k)
+        # also changed this for time
+        results, retrieval_time = retriever.retrieve(query, k=k)
         
         # Check if results are objects (from our JSON) or strings (from Google)
         if isinstance(results[0], dict):

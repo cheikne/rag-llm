@@ -1,4 +1,4 @@
-import os
+import os, time
 
 try:
     from serpapi import GoogleSearch  # type: ignore
@@ -35,6 +35,8 @@ class GoogleSearchAPI:
             return {}
 
     def retrieve(self, query, k=5):
+        start = time.perf_counter()  
+
         params = {
             "engine": "google",
             "q": query,
@@ -46,11 +48,13 @@ class GoogleSearchAPI:
 
         snippets = []
 
-        # Extraire les snippets des résultats organiques
+        # Extract snippets from organic results
         if isinstance(results, dict) and "organic_results" in results:
             for res in results["organic_results"][:k]:
                 snippet = res.get("snippet", "")
                 if snippet:
                     snippets.append(snippet)
 
-        return snippets
+        elapsed = time.perf_counter() - start 
+
+        return snippets, elapsed 
