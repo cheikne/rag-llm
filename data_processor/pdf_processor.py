@@ -205,7 +205,9 @@ class PDFProcessor:
                     "text": chunk_content,
                     "embedding": [],
                     "metadata": {
-                        "source": pdf_path,
+                        "source": "MIT OpenCourseWare",
+                        "source_url": pdf_path,
+                        "lecture": document_id,
                         "character_count": len(chunk_content)
                     }
                 })
@@ -227,8 +229,28 @@ if __name__ == "__main__":
 
     lectures = [
         {"id": "mit_ml_lec1", "url": "https://ocw.mit.edu/courses/6-867-machine-learning-fall-2006/d26f49e758fa83b40c8f22496c857f14_lec1.pdf"},
+        {"id": "mit_ml_lec2", "url": "https://ocw.mit.edu/courses/6-867-machine-learning-fall-2006/df535ce359aad52f48c203db64558fe8_lec2.pdf"},
+        {"id": "mit_ml_lec3", "url": "https://ocw.mit.edu/courses/6-867-machine-learning-fall-2006/c8442240a87cdacbb2b90f8b53393e9d_lec3.pdf"},
+        {"id": "mit_ml_lec4", "url": "https://ocw.mit.edu/courses/6-867-machine-learning-fall-2006/59a63d2efbe8aa01041937ff539a449a_lec4.pdf"},
+        {"id": "mit_ml_lec5", "url": "https://ocw.mit.edu/courses/6-867-machine-learning-fall-2006/9e7f8fb89d65d7572980907fd6d12315_lec5.pdf"},
+        {"id": "mit_ml_lec6", "url": "https://ocw.mit.edu/courses/6-867-machine-learning-fall-2006/1eedc5b3427ca3eef198d707f016f295_lec6.pdf"},
+        {"id": "mit_ml_lec7", "url": "https://ocw.mit.edu/courses/6-867-machine-learning-fall-2006/1b55295adbca700abfa7356a4f832e33_lec7.pdf"},
         {"id": "mit_ml_lec08", "url": "https://ocw.mit.edu/courses/6-867-machine-learning-fall-2006/33a6c8e66c62602f9f03ab6a2c632eed_lec8.pdf"},
+        {"id": "mit_ml_lec9", "url": "https://ocw.mit.edu/courses/6-867-machine-learning-fall-2006/2051efc0159bf145f2050469b7589fc5_lec9.pdf"},
+        {"id": "mit_ml_lec10", "url": "https://ocw.mit.edu/courses/6-867-machine-learning-fall-2006/d5a30e80d0ae7a6796186f40640d3b7d_lec10.pdf"},
+        {"id": "mit_ml_lec11", "url": "https://ocw.mit.edu/courses/6-867-machine-learning-fall-2006/dd0fdf90cb4bb7f2a1b04358588ca506_lec11.pdf"},
+        {"id": "mit_ml_lec12", "url": "https://ocw.mit.edu/courses/6-867-machine-learning-fall-2006/fa94ca034b2700e553744c689fb9360e_lec12.pdf"},
+        {"id": "mit_ml_lec13", "url": "https://ocw.mit.edu/courses/6-867-machine-learning-fall-2006/616f1abe4c4fec09907aa27e5a81f18d_lec13.pdf"},
+        {"id": "mit_ml_lec14", "url": "https://ocw.mit.edu/courses/6-867-machine-learning-fall-2006/44b0ad92b2f9d58e590783fa97b5edf3_lec14.pdf"},
+        {"id": "mit_ml_lec15", "url": "https://ocw.mit.edu/courses/6-867-machine-learning-fall-2006/a5a5b7b5a8c2eb7d7d23eac5c7f3a9af_lec15.pdf"},
+        {"id": "mit_ml_lec16", "url": "https://ocw.mit.edu/courses/6-867-machine-learning-fall-2006/735de5b1396c8364cc51a5b1d479760e_lec16.pdf"},
+        {"id": "mit_ml_lec17", "url": "https://ocw.mit.edu/courses/6-867-machine-learning-fall-2006/5450b1187d84d8ea1cd99ac75526212c_lec17.pdf"},
+        {"id": "mit_ml_lec18", "url": "https://ocw.mit.edu/courses/6-867-machine-learning-fall-2006/0871ac04afeb2df4e9b69738a6d0d38b_lec18.pdf"},
+        {"id": "mit_ml_lec19", "url": "https://ocw.mit.edu/courses/6-867-machine-learning-fall-2006/bd962d39492e55697cfa6bb418ae1642_lec19.pdf"},
+        {"id": "mit_ml_lec20", "url": "https://ocw.mit.edu/courses/6-867-machine-learning-fall-2006/1ad9ace4da67d4c396fa56c250dc2b12_lec20.pdf"},
         {"id": "mit_ml_lec21", "url": "https://ocw.mit.edu/courses/6-867-machine-learning-fall-2006/c0becfe9e6d659575a8c9e30b90f55dd_lec21.pdf"},
+        {"id": "mit_ml_lec22", "url": "https://ocw.mit.edu/courses/6-867-machine-learning-fall-2006/0b2ddf0b3af319e4b2dd204fec91da56_lec22.pdf"},
+        {"id": "mit_ml_lec23", "url": "https://ocw.mit.edu/courses/6-867-machine-learning-fall-2006/b1139f1648df9d4cfe7fd4cc09c3b259_lec23.pdf"}
     ]
     print("Starting PDF processing...")
 

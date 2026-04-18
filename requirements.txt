@@ -11,3 +11,4 @@ uvicorn
 python-dotenv
 requests
 nltk
+langchain-text-splitters

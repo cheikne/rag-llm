@@ -31,9 +31,10 @@ def main():
     rag = RAGPipeline(llm)
 
     # 2. Load Local Data for BM25 and Dense
-    json_path = "data_processor/rag_database_with_vectors.json"
+    # SURPRISE
+    json_path = "data_processor/rag_vectors.json"
     if os.path.exists(json_path):
-        with open(json_path, "r") as f:
+        with open(json_path, "r", encoding="utf-8") as f:
             data = json.load(f)
         
         # Initialize local retrievers
