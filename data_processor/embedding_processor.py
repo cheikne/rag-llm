@@ -35,7 +35,7 @@ class ChunkEmbedder:
 # --- HOW TO INTEGRATE ---
 if __name__ == "__main__":
     # 1. Load your previously generated JSON
-    with open("processed_data.json", "r") as f:
+    with open("processed_data.json", "r", encoding="utf-8") as f:
         data = json.load(f)
 
     # 2. Run embedding
@@ -43,6 +43,6 @@ if __name__ == "__main__":
     updated_data = embedder.embed_chunks(data)
 
     # 3. Save the final version
-    with open("rag_database_with_vectors.json", "w") as f:
-        json.dump(updated_data, f, indent=4)
+    with open("rag_vectors.json", "w", encoding="utf-8") as f:
+        json.dump(updated_data, f, indent=4, ensure_ascii=False)
     print("Done! Your RAG database is now vectorized.")
