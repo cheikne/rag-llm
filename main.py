@@ -2,6 +2,7 @@ from model.llm import LLMModel
 from rag.pipeline_rag import RAGPipeline
 from retrieval.google_search import GoogleSearchAPI
 from retrieval.bm25_retriever import BM25Retriever
+from retrieval.hybrid_retriever import HybridRetriever
 from retrieval.dense_retriever import DenseRetriever
 import json, os, time
 
@@ -40,6 +41,7 @@ def main():
         # Initialize local retrievers
         bm25_engine = BM25Retriever(data)
         dense_engine = DenseRetriever(data)
+        hybrid_engine = HybridRetriever(bm25_engine, dense_engine)
     else:
         print(f"Warning: {json_path} not found. Local retrieval will be unavailable.")
         bm25_engine = dense_engine = None
@@ -50,7 +52,7 @@ def main():
     print("\nAvailable methods: 'bm25', 'dense', 'google', 'hybrid'")
     
     while True:
-        method = input("\nSelect method (bm25/dense/google/exit): ").lower()
+        method = input("\nSelect method (bm25/dense/hybrid/google/exit): ").lower()
         if method == "exit":
             break
         
@@ -61,6 +63,8 @@ def main():
             retriever = bm25_engine
         elif method == "dense" and dense_engine:
             retriever = dense_engine
+        elif method == "hybrid" and hybrid_engine:
+            retriever = hybrid_engine
         elif method == "google":
             retriever = google_engine
         else:

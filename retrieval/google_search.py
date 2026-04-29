@@ -58,3 +58,24 @@ class GoogleSearchAPI:
         elapsed = time.perf_counter() - start 
 
         return snippets, elapsed 
+
+    def retrieve_chunk_id(self, query, k=5):
+        start = time.perf_counter()
+
+        params = {
+            "engine": "google",
+            "q": query,
+            "api_key": self.api_key,
+            "num": k,
+        }
+
+        results = self._call_search(params)
+
+        ids = []
+        if isinstance(results, dict) and "organic_results" in results:
+            num = min(k, len(results["organic_results"]))
+            ids = [i for i in range(num)]
+
+        elapsed = time.perf_counter() - start 
+
+        return ids, elapsed

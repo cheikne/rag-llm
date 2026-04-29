@@ -1,0 +1,1206 @@
+[
+  {
+    "chunk_id": 1,
+    "document_id": "mit_ml_lecture1",
+    "text": "Suppose we are charged with providing automated access control to a building. Before entering the building each person has to look into a camera so we can take a still image of their face. For our purposes it suffices just to decide based on the image whether the person can enter the building.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 1",
+      "topic": "Access control example"
+    }
+  },
+  {
+    "chunk_id": 2,
+    "document_id": "mit_ml_lecture1",
+    "text": "We only have face images of people recorded while access control was still provided manually. As a result of this experience we have labeled images. An image is labeled positive if the person in question should gain entry and negative otherwise.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 1",
+      "topic": "Labeled data"
+    }
+  },
+  {
+    "chunk_id": 3,
+    "document_id": "mit_ml_lecture1",
+    "text": "Our task then is to come up with a function – a classifier – that maps pixel images to binary (±1) labels. And we only have the small set of labeled images (the training set) to constrain the function.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 1",
+      "topic": "Classification task"
+    }
+  },
+  {
+    "chunk_id": 4,
+    "document_id": "mit_ml_lecture1",
+    "text": "We assume that each image (grayscale) is represented as a column vector x of dimension d. So, the pixel intensity values in the image, column by column, are concatenated into a single column vector.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 1",
+      "topic": "Vector representation"
+    }
+  },
+  {
+    "chunk_id": 5,
+    "document_id": "mit_ml_lecture1",
+    "text": "The classifier only has a set of n training vectors x1, . . . , xn with binary ±1 labels y1, . . . , yn. This is the only information about the task that we can use to constrain what the function f should be.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 1",
+      "topic": "Training data"
+    }
+  },
+  {
+    "chunk_id": 6,
+    "document_id": "mit_ml_lecture1",
+    "text": "But do we expect such rules to be useful for images not in the training set? Even an image of the same person varies somewhat each time the image is taken. These rules provide no sensible predictions for images that are not identical to those in the training set.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 1",
+      "topic": "Generalization issue"
+    }
+  },
+  {
+    "chunk_id": 7,
+    "document_id": "mit_ml_lecture1",
+    "text": "Our task is not to correctly classify the training images. Our task is to find a rule that works well for all new images we would encounter. We would like to find classifiers that generalize well.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 1",
+      "topic": "Generalization"
+    }
+  },
+  {
+    "chunk_id": 8,
+    "document_id": "mit_ml_lecture1",
+    "text": "The key is to constrain the set of possible binary functions we can entertain. The class of function should not be too large or too small. Finding the class of functions is a key problem in machine learning, also known as the model selection problem.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 1",
+      "topic": "Model selection"
+    }
+  },
+  {
+    "chunk_id": 9,
+    "document_id": "mit_ml_lecture1",
+    "text": "We only consider functions of the form f(x; θ) = sign θT x. These are linear classifiers. The functions in our class are parameterized by θ ∈ Rd.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 1",
+      "topic": "Linear classifiers"
+    }
+  },
+  {
+    "chunk_id": 10,
+    "document_id": "mit_ml_lecture1",
+    "text": "Geometrically, the classifier changes its prediction only when the argument to the sign function changes from positive to negative. This corresponds to crossing the decision boundary where θT x = 0.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 1",
+      "topic": "Decision boundary"
+    }
+  },
+  {
+    "chunk_id": 11,
+    "document_id": "mit_ml_lecture1",
+    "text": "The perceptron update rule adjusts the parameters according to θ ← θ + ytxt if yt ≠ f(xt; θ). The parameters are changed only if we make a mistake.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 1",
+      "topic": "Perceptron update"
+    }
+  },
+  {
+    "chunk_id": 12,
+    "document_id": "mit_ml_lecture1",
+    "text": "The perceptron algorithm ceases to update the parameters only when all the training images are classified correctly. If the training images are possible to classify correctly with a linear classifier, it will converge to such a classifier in a finite number of updates.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 1",
+      "topic": "Perceptron convergence"
+    }
+  },
+
+  {
+    "chunk_id": 13,
+    "document_id": "mit_ml_lecture2",
+    "text": "Recall that we are dealing with linear classifiers through origin, i.e., f(x; θ) = sign θT x (1) where θ ∈ Rd specifies the parameters that we have to estimate on the basis of training examples (images) x1, . . . , xn and labels y1, . . . , yn.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 2",
+      "topic": "Linear classifier setup"
+    }
+  },
+  {
+    "chunk_id": 14,
+    "document_id": "mit_ml_lecture2",
+    "text": "We will use the perceptron algorithm to solve the estimation task. Let k denote the number of parameter updates we have performed and θ(k) the parameter vector after k updates. Initially k = 0 and θ(k) = 0.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 2",
+      "topic": "Perceptron initialization"
+    }
+  },
+  {
+    "chunk_id": 15,
+    "document_id": "mit_ml_lecture2",
+    "text": "The algorithm then cycles through all the training instances (xt, yt) and updates the parameters only in response to mistakes, i.e., when the label is predicted incorrectly. More precisely, we set θ(k+1) = θ(k) + ytxt when yt(θ(k))T xt < 0 (mistake), and otherwise leave the parameters unchanged.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 2",
+      "topic": "Perceptron update rule"
+    }
+  },
+  {
+    "chunk_id": 16,
+    "document_id": "mit_ml_lecture2",
+    "text": "Let’s now show that the perceptron algorithm indeed convergences in a finite number of updates. The same analysis will also help us understand how the linear classifier generalizes to unseen images. To this end, we will assume that all the (training) images have bounded Euclidean norms, i.e., ||xt|| ≤ R for all t and some finite R.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 2",
+      "topic": "Bounded norm assumption"
+    }
+  },
+  {
+    "chunk_id": 17,
+    "document_id": "mit_ml_lecture2",
+    "text": "This is clearly the case for any pixel images with bounded intensity values. We also make a much stronger assumption that there exists a linear classifier in our class with finite parameter values that correctly classifies all the (training) images. More precisely, we assume that there is some γ > 0 such that yt(θ∗)T xt ≥ γ for all t = 1, . . . , n. The additional number γ > 0 is used to ensure that each example is classified correctly with a finite margin.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 2",
+      "topic": "Margin assumption"
+    }
+  },
+  {
+    "chunk_id": 18,
+    "document_id": "mit_ml_lecture2",
+    "text": "The convergence proof is based on combining two results: 1) we will show that the inner product (θ∗)T θ(k) increases at least linearly with each update, and 2) the squared norm ||θ(k)||2 increases at most linearly in the number of updates k. By combining the two we can show that the cosine of the angle between θ(k) and θ∗ has to increase by a finite increment due to each update. Since cosine is bounded by one, it follows that we can only make a finite number of updates.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 2",
+      "topic": "Convergence proof overview"
+    }
+  },
+  {
+    "chunk_id": 19,
+    "document_id": "mit_ml_lecture2",
+    "text": "Part 1: we simply take the inner product (θ∗)T θ(k) before and after each update. When making the kth update, say due to a mistake on image xt, we get (θ∗)T θ(k) = (θ∗)T θ(k−1) + yt(θ∗)T xt ≥ (θ∗)T θ(k−1) + γ (2)",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 2",
+      "topic": "Part 1 inner product bound"
+    }
+  },
+  {
+    "chunk_id": 20,
+    "document_id": "mit_ml_lecture2",
+    "text": "since, by assumption, yt(θ∗)T xt ≥ γ for all t (θ∗ is always correct). Thus, after k updates, (θ∗)T θ(k) ≥ kγ (3)",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 2",
+      "topic": "Inner product growth result"
+    }
+  },
+  {
+    "chunk_id": 21,
+    "document_id": "mit_ml_lecture2",
+    "text": "Part 2: Our second claim follows simply from the fact that updates are made only on mistakes: ||θ(k)||2 = ||θ(k−1) + ytxt||2 (4) = ||θ(k−1)||2 + 2yt(θ(k−1))T xt + ||xt||2 (5) ≤ ||θ(k−1)||2 + ||xt||2 (6) ≤ || + R2 (7) since yt(θ(k−1))T xt < 0 whenever an update is made and, by assumption, ||xt|| ≤ R.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 2",
+      "topic": "Part 2 norm bound"
+    }
+  },
+  {
+    "chunk_id": 22,
+    "document_id": "mit_ml_lecture2",
+    "text": "Thus, ||θ(k)||2 ≤ kR2 (8). We can now combine parts 1) and 2) to bound the cosine of the angle between θ∗ and θ(k): cos(θ∗, θ(k)) = (θ∗)T θ(k) / (||θ(k)|| ||θ∗||) ≥ kγ / (√kR2 ||θ∗||) (9)",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 2",
+      "topic": "Combining parts 1 and 2"
+    }
+  },
+  {
+    "chunk_id": 23,
+    "document_id": "mit_ml_lecture2",
+    "text": "Since cosine is bounded by one, we get 1 ≥ kγ / (√kR2 ||θ∗||) or k ≤ (R2 / γ2) ||θ∗||2 (10)",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 2",
+      "topic": "Finite update bound"
+    }
+  },
+  {
+    "chunk_id": 24,
+    "document_id": "mit_ml_lecture2",
+    "text": "It is worthwhile to understand this result a bit further. For example, does ||θ∗||2/γ2 relate to how difficult the classification problem is? Indeed, it does. We claim that its inverse, i.e., γ/||θ∗|| is the smallest distance in the image space from any example (image) to the decision boundary specified by θ∗. In other words, it serves as a measure of how well the two classes of images are separated (by a linear boundary). We will call this the geometric margin or γgeom.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 2",
+      "topic": "Geometric margin definition"
+    }
+  },
+  {
+    "chunk_id": 25,
+    "document_id": "mit_ml_lecture2",
+    "text": "γ−1 is then a fair measure of how difficult the problem is: the smaller the geometric margin that separates the training images, the more difficult the problem. To calculate γgeom we measure the distance from the decision boundary θ∗T x = 0 to one of the images xt for which ytθ∗T xt = γ. Since θ∗ specifies the normal to the decision boundary, the shortest path from the boundary to the image xt will be parallel to the normal.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 2",
+      "topic": "Margin geometry interpretation"
+    }
+  },
+  {
+    "chunk_id": 26,
+    "document_id": "mit_ml_lecture2",
+    "text": "The image for which ytθ∗T xt = γ is therefore among those closest to the boundary. Now, let’s define a line segment from x(0) = xt, parallel to θ∗, towards the boundary. This is given by x(ξ) = x(0) − ξ ytθ∗ / ||θ∗|| (11) where ξ defines the length of the line segment since it multiplies a unit length vector. It remains to find the value of ξ such that θ∗T x(ξ) = 0, or, equivalently, ytθ∗T x(ξ) = 0.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 2",
+      "topic": "Line segment to boundary"
+    }
+  },
+  {
+    "chunk_id": 27,
+    "document_id": "mit_ml_lecture2",
+    "text": "This is the point where the segment hits the decision boundary. Thus ytθ∗T x(ξ) = ytθ∗T x(0) − ξ ||θ∗|| = γ − ξ||θ∗|| = 0 (12)-(15), implying that the distance is exactly ξ = γ/||θ∗|| as claimed. As a result, the bound on the number of perceptron updates can be written more succinctly in terms of the geometric margin γgeom: k ≤ (R / γgeom)2 (16)",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 2",
+      "topic": "Distance derivation and update bound"
+    }
+  },
+  {
+    "chunk_id": 28,
+    "document_id": "mit_ml_lecture2",
+    "text": "with the understanding that γgeom is the largest geometric margin that could be achieved by a linear classifier for this problem. Note that the result does not depend (directly) on the dimension d of the examples, nor the number of training examples n. It is nevertheless tempting to interpret γgeom as a measure of difficulty (or complexity) of the problem of learning linear classifiers in this setting. You will see later in the course that this is exactly the case, cast in terms of a measure known as VC-dimension.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 2",
+      "topic": "Meaning of geometric margin"
+    }
+  },
+  {
+    "chunk_id": 29,
+    "document_id": "mit_ml_lecture2",
+    "text": "We have so far discussed the perceptron algorithm only in relation to the training set but we are more interested in how well the perceptron classifies images we have not yet seen, i.e., how well it generalizes to new images. Our simple analysis above actually provides some information about generalization. Let’s assume then that all the images and labels we could possibly encounter satisfy the same two assumptions. In other words, 1) ||xt|| ≤ R and 2) ytθ∗T xt ≥ γ for all t and some finite θ∗.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 2",
+      "topic": "Generalization guarantees"
+    }
+  },
+  {
+    "chunk_id": 30,
+    "document_id": "mit_ml_lecture2",
+    "text": "So, in essence, we assume that there is a linear classifier that works for all images and labels in this problem, we just don’t know what this linear classifier is to start with. Let’s now imagine getting the images and labels one by one and performing only a single update per image, if misclassified, and move on. The previous situation concerning the training set corresponds to encountering the same set of images repeatedly.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 2",
+      "topic": "Online setting"
+    }
+  },
+  {
+    "chunk_id": 31,
+    "document_id": "mit_ml_lecture2",
+    "text": "How many mistakes are we now going to make in this infinite arbitrary sequence of images and labels, subject only to the two assumptions? The same number k ≤ (R/γgeom)2. Once we have made this many mistakes we would classify all the new images correctly. So, provided that the two assumptions hold, especially the second one, we obtain a nice guarantee of generalization. One caveat here is that the perceptron algorithm does need to know when it has made a mistake. The bound is after all cast in terms of the number of updates based on mistakes.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 2",
+      "topic": "Mistake bound and caveat"
+    }
+  },
+  {
+    "chunk_id": 32,
+    "document_id": "mit_ml_lecture2",
+    "text": "We have so far used a simple on-line algorithm, the perceptron algorithm, to estimate a linear classifier. Our reference assumption has been, however, that there exists a linear classifier that has a large geometric margin, i.e., whose decision boundary is well separated from all the training images (examples). Can’t we find such a large margin classifier directly? Yes, we can. The classifier is known as the Support Vector Machine or SVM for short. See the next lecture for details.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 2",
+      "topic": "SVM preview"
+    }
+  },
+
+  {
+    "chunk_id": 33,
+    "document_id": "mit_ml_lecture3",
+    "text": "So far we have used a reference assumption that there exists a linear classifier that has a large geometric margin, i.e., whose decision boundary is well separated from all the training images (examples). Such a large margin classifier seems like one we would like to use. Can’t we find it more directly? Yes, we can. The classifier is known as the Support Vector Machine or SVM for short.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 3",
+      "topic": "SVM motivation"
+    }
+  },
+  {
+    "chunk_id": 34,
+    "document_id": "mit_ml_lecture3",
+    "text": "You could imagine finding the maximum margin linear classifier by first identifying any classifier that correctly classifies all the examples (Figure 2a) and then increasing the ge￾ometric margin until the classifier “locks in place” at the point where we cannot increase the margin any further (Figure 2b). The solution is unique.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 3",
+      "topic": "Maximum margin intuition"
+    }
+  },
+  {
+    "chunk_id": 35,
+    "document_id": "mit_ml_lecture3",
+    "text": "More formally, we can set up an optimization problem for directly maximizing the geometric margin. We will need the classifier to be correct on all the training examples or ytθT xt ≥ γ for all t = 1, . . . , n. Subject to these constraints, we would like to maximize γ/�θ�, i.e., the geometric margin. We can alternatively minimize the inverse �θ�/γ or the inverse squared 1 (�θ�/γ)2 subject to the same constraints (the factor 1/2 is included merely for later convenience).",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 3",
+      "topic": "Margin optimization"
+    }
+  },
+  {
+    "chunk_id": 36,
+    "document_id": "mit_ml_lecture3",
+    "text": "We then have the following optimization problem for finding θˆ: minimize 1 2 �θ�2 /γ2 subject to ytθT xt ≥ γ for all t = 1, . . . , n (1)",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 3",
+      "topic": "Optimization problem"
+    }
+  },
+  {
+    "chunk_id": 37,
+    "document_id": "mit_ml_lecture3",
+    "text": "We can simplify this a bit further by getting rid of γ. Let’s first rewrite the optimization problem in a way that highlights how the solution depends (or doesn’t depend) on γ: minimize 1 2 �θ/γ�2 subject to yt(θ/γ) T xt ≥ 1 for all t = 1, . . . , n (2)",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 3",
+      "topic": "Scaling argument"
+    }
+  },
+  {
+    "chunk_id": 38,
+    "document_id": "mit_ml_lecture3",
+    "text": "In other words, our classification problem (the data, setup) only tells us something about the ratio θ/γ, not θ or γ separately. For example, the geometric margin is defined only on the basis of this ratio. Scaling θ by a constant also doesn’t change the decision boundary.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 3",
+      "topic": "Ratio interpretation"
+    }
+  },
+  {
+    "chunk_id": 39,
+    "document_id": "mit_ml_lecture3",
+    "text": "We can therefore fix γ = 1 and solve for θ from minimize 1 2 �θ�2 subject to ytθT xt ≥ 1 for all t = 1, . . . , n (3)",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 3",
+      "topic": "Standard SVM form"
+    }
+  },
+  {
+    "chunk_id": 40,
+    "document_id": "mit_ml_lecture3",
+    "text": "We will modify the linear classifier here slightly by adding an offset term so that the decision boundary does not have to go through the origin. In other words, the classifier that we consider has the form f(x; θ, θ0) = sign( θT x + θ0 ) (4)",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 3",
+      "topic": "Offset parameter"
+    }
+  },
+  {
+    "chunk_id": 41,
+    "document_id": "mit_ml_lecture3",
+    "text": "As before, the equation for the separating hyper-plane is obtained by setting the argument to the sign function to zero or θT x + θ0 = 0. This is a general equation for a hyper-plane (line in 2-dim). The additional offset parameter can lead to a classifier with a larger geometric margin.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 3",
+      "topic": "Hyperplane equation"
+    }
+  },
+  {
+    "chunk_id": 42,
+    "document_id": "mit_ml_lecture3",
+    "text": "The offset parameter changes the optimization problem only slightly: minimize 1 2 �θ�2 subject to yt(θT xt + θ0) ≥ 1 for all t = 1, . . . , n (5)",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 3",
+      "topic": "Offset optimization"
+    }
+  },
+  {
+    "chunk_id": 43,
+    "document_id": "mit_ml_lecture3",
+    "text": "The maximum margin classifier has several very nice properties, and some not so advanta￾geous features.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 3",
+      "topic": "Properties overview"
+    }
+  },
+  {
+    "chunk_id": 44,
+    "document_id": "mit_ml_lecture3",
+    "text": "On the positive side, we have already motivated these classifiers based on the perceptron algorithm as the “best reference classifiers”. The solution is also unique based on any linearly separable training set. Moreover, drawing the separating boundary as far from the training examples as possible makes it robust to noisy examples (though not noisy labels).",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 3",
+      "topic": "Benefits"
+    }
+  },
+  {
+    "chunk_id": 45,
+    "document_id": "mit_ml_lecture3",
+    "text": "The maximum margin linear boundary also has the curious property that the solution depends only on a subset of the examples, those that appear exactly on the margin (the dashed lines parallel to the boundary in the figures). The examples that lie exactly on the margin are called support vectors.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 3",
+      "topic": "Support vectors"
+    }
+  },
+  {
+    "chunk_id": 46,
+    "document_id": "mit_ml_lecture3",
+    "text": "One possible “fair” performance measure evaluated only on the basis of the training examples is cross-validation. A particular version of this type of procedure is called leave-one-out cross-validation.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 3",
+      "topic": "Cross-validation"
+    }
+  },
+  {
+    "chunk_id": 47,
+    "document_id": "mit_ml_lecture3",
+    "text": "We can therefore derive a simple upper bound on the leave-one-out CV error: # of support vectors leave-one-out CV error ≤ n (7)",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 3",
+      "topic": "CV bound"
+    }
+  },
+  {
+    "chunk_id": 48,
+    "document_id": "mit_ml_lecture3",
+    "text": "Perhaps the simplest way to permit errors in the maximum margin linear classifier is to introduce “slack” variables for the classification/margin constraints in the optimization problem.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 3",
+      "topic": "Slack variables"
+    }
+  },
+  {
+    "chunk_id": 49,
+    "document_id": "mit_ml_lecture3",
+    "text": "The penalty C controls the trade-off between margin size and constraint violations.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 3",
+      "topic": "Regularization parameter"
+    }
+  },
+
+  {
+    "chunk_id": 50,
+    "document_id": "mit_ml_lecture4",
+    "text": "We proposed a simple relaxed optimization problem for finding the maximum margin sep￾arator when some of the examples may be misclassified: minimize 1/2 �θ�2 + C �n t=1 ξt (1) subject to yt(θT xt + θ0) ≥ 1 − ξt and ξt ≥ 0 for all t = 1, . . . , n (2) where the remaining parameter C could be set by cross-validation, i.e., by minimizing the leave-one-out cross-validation error.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 4",
+      "topic": "Relaxed optimization problem"
+    }
+  },
+  {
+    "chunk_id": 51,
+    "document_id": "mit_ml_lecture4",
+    "text": "The goal here is to briefly understand the relaxed optimization problem from the point of view of regularization. Regularization problems are typically formulated as optimization problems involving the desired objective (classification loss in our case) and a regularization penalty. The regularization penalty is used to help stabilize the minimization of the ob￾jective or infuse prior knowledge we might have about desirable solutions. Many machine learning methods can be viewed as regularization methods in this manner. For later utility we will cast SVM optimization problem as a regularization problem.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 4",
+      "topic": "Regularization view"
+    }
+  },
+  {
+    "chunk_id": 52,
+    "document_id": "mit_ml_lecture4",
+    "text": "To turn the relaxed optimization problem into a regularization problem we define a loss function that corresponds to individually optimized ξt values and specifies the cost of vio￾lating each of the margin constraints. We are effectively solving the optimization problem with respect to the ξ values for a fixed θ and θ0. This will lead to an expression of C Σt ξt as a function of θ and θ0.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 4",
+      "topic": "Loss function setup"
+    }
+  },
+  {
+    "chunk_id": 53,
+    "document_id": "mit_ml_lecture4",
+    "text": "The loss function we need for this purpose is based on the hinge loss Lossh(z) defined as the positive part of 1 − z, written as (1 − z)+ (see Figure 1a). The relaxed optimization problem can be written using the hinge loss as ξˆt n minimize 1/2 �θ�2 + C Σt=1 � 1 − yt(θT xt + θ0) �+ (3)",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 4",
+      "topic": "Hinge loss"
+    }
+  },
+  {
+    "chunk_id": 54,
+    "document_id": "mit_ml_lecture4",
+    "text": "Here �θ�2/2, the inverse squared geometric margin, is viewed as a regularization penalty that helps stabilize the objective n C Σt=1 1 − yt(θT xt + θ0) (4) In other words, when no margin constraints are violated (zero loss), the regularization penalty helps us select the solution with the largest geometric margin.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 4",
+      "topic": "Regularization penalty"
+    }
+  },
+  {
+    "chunk_id": 55,
+    "document_id": "mit_ml_lecture4",
+    "text": "Another way of dealing with noisy labels in linear classification is to model how the noisy labels are generated. For example, human assigned labels tend to be very good for “typical examples” but exhibit some variation in more difficult cases. One simple model of noisy labels in linear classification is a logistic regression model.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 4",
+      "topic": "Logistic regression motivation"
+    }
+  },
+  {
+    "chunk_id": 56,
+    "document_id": "mit_ml_lecture4",
+    "text": "In this model we assign a probability distribution over the two labels in such a way that the labels for examples further away from the decision boundary are more likely to be correct. More precisely, we say that P(y = 1|x, θ, θ0) = g( θT x + θ0 ) (5) where g(z) = (1 + exp(−z))−1 is known as the logistic function (Figure 2).",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 4",
+      "topic": "Logistic function"
+    }
+  },
+  {
+    "chunk_id": 57,
+    "document_id": "mit_ml_lecture4",
+    "text": "One way to derive the form of the logistic function is to say that the log-odds of the predicted class probabilities should be a linear function of the inputs: log P(y = 1|x, θ, θ0) / P(y = −1|x, θ, θ0) = θT x + θ0 (6) So for example, when we predict the same probability (1/2) for both classes, the log-odds term is zero and we recover the decision boundary θT x + θ0 = 0.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 4",
+      "topic": "Log-odds"
+    }
+  },
+  {
+    "chunk_id": 58,
+    "document_id": "mit_ml_lecture4",
+    "text": "The precise functional form of the logistic function, or, equivalently, the fact that we chose to model log-odds with the linear prediction, may seem a little arbitrary (but perhaps not more so than the hinge loss used with the SVM classifier). We will derive the form of the logistic function later on in the course based on certain assumptions about class-conditional distributions P(x|y = 1) and P(x|y = −1).",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 4",
+      "topic": "Interpretation of logistic model"
+    }
+  },
+  {
+    "chunk_id": 59,
+    "document_id": "mit_ml_lecture4",
+    "text": "In order to better compare the logistic regression model with the SVM we will write the conditional probability P(y|x, θ, θ0) a bit more succinctly. Specifically, since 1 − g(z) = g(−z) we get P(y = −1|x, θ, θ0) = 1 − P(y = 1|x, θ, θ0) = 1 − g( θT x + θ0 ) = g −(θT x + θ0) (7) and therefore P(y|x, θ, θ0) = g y(θT x + θ0) (8)",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 4",
+      "topic": "Conditional probability form"
+    }
+  },
+  {
+    "chunk_id": 60,
+    "document_id": "mit_ml_lecture4",
+    "text": "So now we have a linear classifier that makes probabilistic predictions about the labels. How should we train such models? A sensible criterion would seem to be to maximize the probability that we predict the correct label in response to each example. Assuming each example is labeled independently from others, this probability of assigning correct labels to examples is given by the product n L(θ, θ0) = Πt=1 P(yt|xt, θ, θ0) (9)",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 4",
+      "topic": "Likelihood function"
+    }
+  },
+  {
+    "chunk_id": 61,
+    "document_id": "mit_ml_lecture4",
+    "text": "L(θ, θ0) is known as the (conditional) likelihood function and is interpreted as a function of the parameters for a fixed data (labels and examples). By maximizing this conditional likelihood with respect to θ and θ0 we obtain maximum likelihood estimates of the param￾eters.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 4",
+      "topic": "Maximum likelihood"
+    }
+  },
+  {
+    "chunk_id": 62,
+    "document_id": "mit_ml_lecture4",
+    "text": "The product form of the conditional likelihood function is a bit difficult to work with directly so we will maximize its logarithm instead: n l(θ, θ0) = Σt=1 log P(yt|xt, θ, θ0) (10) Alternatively, we can minimize the negative logarithm log-loss − l(θ, θ0) = − Σt=1 log P(yt|xt, θ, θ0) (11) = − Σt=1 log g yt(θT xt + θ0) (12) = Σt=1 log � 1 + exp � −yt(θT xt + θ0) �� (13)",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 4",
+      "topic": "Log-loss"
+    }
+  },
+  {
+    "chunk_id": 63,
+    "document_id": "mit_ml_lecture4",
+    "text": "We can interpret this similarly to the sum of the hinge losses in the SVM approach. As before, we have a base loss function, here log[1+exp(−z)] (Figure 1b), similar to the hinge loss (Figure 1a), and this loss depends only on the value of the “margin” yt(θT xt + θ0) for each example.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 4",
+      "topic": "Comparison to hinge loss"
+    }
+  },
+  {
+    "chunk_id": 64,
+    "document_id": "mit_ml_lecture4",
+    "text": "The difference here is that we have a clear probabilistic interpretation of the “strength” of the prediction, i.e., how high P(yt|xt, θ, θ0) is for any particular example. Having a probabilistic interpretation does not, however, mean that the probability values are in any way sensible or calibrated. Predicted probabilities are calibrated when they correspond to observed frequencies.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 4",
+      "topic": "Calibration"
+    }
+  },
+  {
+    "chunk_id": 65,
+    "document_id": "mit_ml_lecture4",
+    "text": "The minimization problem we have defined above is convex and there are a number of optimization methods available for finding the minimizing θˆ and θˆ0 including simple gradi￾ent descent. In a simple (stochastic) gradient descent, we would modify the parameters in response to each term in the sum (based on each training example).",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 4",
+      "topic": "Gradient descent"
+    }
+  },
+  {
+    "chunk_id": 66,
+    "document_id": "mit_ml_lecture4",
+    "text": "To specify the updates we need the following derivatives d/dθ0 log � 1 + exp � −yt(θT xt + θ0) �� = −yt exp −yt(θT xt + θ0) / 1 + exp ( −yt(θT xt + θ0)) (14) = −yt[1 − P(yt|xt, θ, θ0)] (15) and d/dθ log � 1 + exp � −yt(θT xt + θ0) �� = −ytxt[1 − P(yt|xt, θ, θ0)] (16)",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 4",
+      "topic": "Derivatives"
+    }
+  },
+  {
+    "chunk_id": 67,
+    "document_id": "mit_ml_lecture4",
+    "text": "The parameters are then updated by selecting training examples at random and moving the parameters in the opposite direction of the derivatives: θ0 ← θ0 + η · yt[1 − P(yt|xt, θ, θ0)] (17) θ ← θ + η · ytxt[1 − P(yt|xt, θ, θ0)] (18) where η is a small (positive) learning rate.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 4",
+      "topic": "Stochastic gradient descent updates"
+    }
+  },
+  {
+    "chunk_id": 68,
+    "document_id": "mit_ml_lecture4",
+    "text": "Note that P(yt|xt, θ, θ0) is the probability that we predict the training label correctly and [1−P(yt|xt, θ, θ0)] is the probability of making a mistake. The stochastic gradient descent updates in the logistic regression context therefore strongly resemble the perceptron mistake driven updates. The key difference here is that the updates are graded, made in proportion to the probability of making a mistake.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 4",
+      "topic": "Relation to perceptron"
+    }
+  },
+  {
+    "chunk_id": 69,
+    "document_id": "mit_ml_lecture4",
+    "text": "The stochastic gradient descent algorithm leads to no significant change on average when the gradient of the full objective equals zero. Setting the gradient to zero is also a necessary condition of optimality: n Σt=1 d/dθ0 (−l(θ, θ0)) = − yt[1 − P(yt|xt, θ, θ0)] = 0 (19) n Σt=1 d/dθ (−l(θ, θ0)) = − ytxt[1 − P(yt|xt, θ, θ0)] = 0 (20)",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 4",
+      "topic": "Optimality conditions"
+    }
+  },
+  {
+    "chunk_id": 70,
+    "document_id": "mit_ml_lecture4",
+    "text": "The sum in Eq.(19) is the difference between mistake probabilities associated with positively and negatively labeled examples. The optimality of θ0 therefore ensures that the mistakes are balanced in this (soft) sense. Another way of understanding this is that the vector of mistake probabilities is orthogonal to the vector of labels.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 4",
+      "topic": "Interpretation of optimality"
+    }
+  },
+  {
+    "chunk_id": 71,
+    "document_id": "mit_ml_lecture4",
+    "text": "Similarly, the optimal setting of θ is characterized by mistake probabilities that are orthogonal to all rows of the label￾example matrix X˜ = [y1x1, . . . , ynxn]. In other words, for each dimension j of the example vectors, [y1x1j , . . . , ynxnj ] is orthogonal to the mistake probabilities.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 4",
+      "topic": "Orthogonality conditions"
+    }
+  },
+  {
+    "chunk_id": 72,
+    "document_id": "mit_ml_lecture4",
+    "text": "Taken together, these orthogonality conditions ensure that there’s no further linearly available information in the examples to improve the predicted probabilities (or mistake probabilities). This is perhaps a bit easier to see if we first map ±1 labels into 0/1 labels: y˜t = (1 + yt)/2 so that y˜t ∈ {0, 1}.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 4",
+      "topic": "Prediction errors form"
+    }
+  },
+  {
+    "chunk_id": 73,
+    "document_id": "mit_ml_lecture4",
+    "text": "Then the above optimality conditions can be rewritten in terms of prediction errors [y˜t − P(y = 1|xt, θ, θ0)] rather than mistake probabilities as n Σt=1 [y˜t − P(y = 1|xt, θ, θ0)] = 0 (21) n Σt=1 xt[y˜t − P(y = 1|xt, θ, θ0)] = 0 (22)",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 4",
+      "topic": "Prediction error conditions"
+    }
+  },
+  {
+    "chunk_id": 74,
+    "document_id": "mit_ml_lecture4",
+    "text": "and n n θ0 Σt=1 [y˜t − P(y = 1|xt, θ, θ0)] + θ�T xt[y˜t − P(y = 1|xt, θ, θ0)] (23) t=1 n = (θ�T xt + θ0)[y˜t − P(y = 1|xt, θ, θ0)] = 0 (24) t=1 meaning that the prediction errors are orthogonal to any linear function of the inputs.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 4",
+      "topic": "Orthogonal prediction errors"
+    }
+  },
+  {
+    "chunk_id": 75,
+    "document_id": "mit_ml_lecture4",
+    "text": "Let’s try to briefly understand the type of predictions we could obtain via maximum like￾lihood estimation of the logistic regression model. Suppose the training examples are linearly separable. In this case we can find parameter values such that yt(θT xt + θ0) are positive for all training examples. By scaling up the parameters, we make these values larger and larger.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 4",
+      "topic": "Separable case"
+    }
+  },
+  {
+    "chunk_id": 76,
+    "document_id": "mit_ml_lecture4",
+    "text": "This is beneficial as far as the likelihood model is concerned since the log of the logistic function is strictly increasing as a function of yt(θT xt + θ0) (the loss log � 1 + exp � −yt(θT xt + θ0) is strictly decreasing). Thus, as a result, the maximum like￾lihood parameter values would become unbounded, and infinite scaling of any parameters corresponding to a perfect linear classifier would attain the highest likelihood.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 4",
+      "topic": "Unbounded ML solution"
+    }
+  },
+  {
+    "chunk_id": 77,
+    "document_id": "mit_ml_lecture4",
+    "text": "The resulting probability values, predicting each training label correctly with probability one, are hardly accurate in the sense of reflecting our uncertainty about what the labels might be. So, when the number of training ex￾amples is small we would need to add the regularizer �θ�2/2 just as in the SVM model. The regularizer helps select reasonable parameters when the available training data fails to sufficiently constrain the linear classifier.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 4",
+      "topic": "Need for regularization"
+    }
+  },
+  {
+    "chunk_id": 78,
+    "document_id": "mit_ml_lecture4",
+    "text": "To estimate the parameters of the logistic regression model with regularization we would minimize instead n 1/2 �θ�2 + C Σt=1 log � 1 + exp � −yt(θT xt + θ0) �� (25) where the constant C again specifies the trade-off between correct classification (the ob￾jective) and the regularization penalty.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 4",
+      "topic": "Regularized logistic regression"
+    }
+  },
+  {
+    "chunk_id": 79,
+    "document_id": "mit_ml_lecture4",
+    "text": "The regularization problem is typically written (equivalently) as n λ/2 �θ�2 + Σt=1 log � 1 + exp � −yt(θT xt + θ0) �� (26) since it seems more natural to vary the strength of regularization with λ while keeping the objective the same.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 4",
+      "topic": "Lambda form"
+    }
+  },
+
+  {
+    "chunk_id": 80,
+    "document_id": "mit_ml_lecture5",
+    "text": "We arrived at the logistic regression model when trying to explicitly model the uncertainty about the labels in a linear classifier. The same general modeling approach permits us to use linear predictions in various other contexts as well. The simplest of them is regression where the goal is to predict a continuous response yt ∈ R to each example vector. Here too focusing on linear predictions won’t be inherently limiting as linear predictions can be easily extended (next lecture).",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 5",
+      "topic": "Regression introduction"
+    }
+  },
+  {
+    "chunk_id": 81,
+    "document_id": "mit_ml_lecture5",
+    "text": "So, how should we model continuous responses? The linear function of the input already produces a “mean prediction” or θT x + θ0. By treating this as a mean prediction more formally, we are stating that the expected value of the response variable, conditioned on x, is θT x + θ0. More succinctly, we say that E{y|x} = θT x + θ0.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 5",
+      "topic": "Mean prediction"
+    }
+  },
+  {
+    "chunk_id": 82,
+    "document_id": "mit_ml_lecture5",
+    "text": "It remains to associate a distribution over the responses around such mean prediction. The simplest symmetric distribution is the normal (Gaussian) distribution. In other words, we say that the responses y follow the normal pdf 1 / √2πσ2 exp −1/2σ2 (y − µ)2 where µ = θT x + θ0. Our response model is therefore defined as P(y|x, θ, θ0) = N(y; θT x + θ0, σ2).",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 5",
+      "topic": "Gaussian assumption"
+    }
+  },
+  {
+    "chunk_id": 83,
+    "document_id": "mit_ml_lecture5",
+    "text": "So, when the input is 1-dimensional, we predict a mean response that is a line in (x, y) space, and assume that noise in y is normally distributed with zero mean and variance σ2. Note that the noise variance σ2 in the model does not depend on the input x.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 5",
+      "topic": "Noise model"
+    }
+  },
+  {
+    "chunk_id": 84,
+    "document_id": "mit_ml_lecture5",
+    "text": "We can also write the linear regression model in another way to explicate how exactly the additive noise appears in the responses: y = θT x + θ0 + � where � ∼ N(0, σ2). Clearly for this model E{y|x} = θT x + θ0 since � has zero mean.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 5",
+      "topic": "Additive noise form"
+    }
+  },
+  {
+    "chunk_id": 85,
+    "document_id": "mit_ml_lecture5",
+    "text": "Regardless of how we choose the write the model (both forms are useful) we can find the parameter estimates by maximizing the conditional likelihood. Similarly to the logistic regression case, the conditional likelihood is written as L(θ, θ0, σ2) = Πt=1n N(yt; θT xt + θ0, σ2).",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 5",
+      "topic": "Likelihood formulation"
+    }
+  },
+  {
+    "chunk_id": 86,
+    "document_id": "mit_ml_lecture5",
+    "text": "Now, the problem of estimating the parameters θ and θ0 is nicely decoupled from estimating σ2. In other words, we can find the maximizing θˆ and θˆ0 by simply minimizing the mean squared error Σt (yt − θT xt − θ0)2.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 5",
+      "topic": "MSE objective"
+    }
+  },
+  {
+    "chunk_id": 87,
+    "document_id": "mit_ml_lecture5",
+    "text": "Let X be a matrix whose rows are given by [xtT , 1]. In terms of this matrix, the minimization problem yields θˆ = (XTX)−1 XT y. Note that the optimal parameter values are linear functions of the observed responses y.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 5",
+      "topic": "Closed form solution"
+    }
+  },
+  {
+    "chunk_id": 88,
+    "document_id": "mit_ml_lecture5",
+    "text": "The noise variance can be subsequently set to account for the remaining prediction errors. Indeed, the maximizing value of σ2 is given by σˆ2 = 1/n Σt (yt − θˆT xt − θˆ0)2 which is the average squared prediction error.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 5",
+      "topic": "Variance estimation"
+    }
+  },
+  {
+    "chunk_id": 89,
+    "document_id": "mit_ml_lecture5",
+    "text": "We can make use of the closed form parameter estimates to analyze how good these estimates are. For this purpose let’s assume that the actual relation between x and y follows a linear model of the same type that we are estimating.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 5",
+      "topic": "Model assumption"
+    }
+  },
+  {
+    "chunk_id": 90,
+    "document_id": "mit_ml_lecture5",
+    "text": "Our parameter estimates are therefore unbiased or correct on average when averaging is over possible training sets we could generate. The averaging here is conditioned on the specific training inputs.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 5",
+      "topic": "Unbiasedness"
+    }
+  },
+  {
+    "chunk_id": 91,
+    "document_id": "mit_ml_lecture5",
+    "text": "Using the expressions we can also evaluate the conditional covariance of the parameter estimates. The covariance is given by σ∗2 (XTX)−1.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 5",
+      "topic": "Covariance"
+    }
+  },
+  {
+    "chunk_id": 92,
+    "document_id": "mit_ml_lecture5",
+    "text": "The expectation of the squared norm of any vector valued random variable can be decomposed into bias and variance components. This gives E||z − z∗||2 = variance + bias2.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 5",
+      "topic": "Bias-variance decomposition"
+    }
+  },
+  {
+    "chunk_id": 93,
+    "document_id": "mit_ml_lecture5",
+    "text": "The mean squared error of the parameter estimates is therefore given by σ∗2 Tr (XTX)−1.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 5",
+      "topic": "MSE result"
+    }
+  },
+  {
+    "chunk_id": 94,
+    "document_id": "mit_ml_lecture5",
+    "text": "When the number of training examples is small it is often beneficial to regularize the parameter estimates. We assign a prior distribution over the parameters to prefer small parameter values.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 5",
+      "topic": "Regularization motivation"
+    }
+  },
+  {
+    "chunk_id": 95,
+    "document_id": "mit_ml_lecture5",
+    "text": "By combining the log-likelihood criterion with the prior we obtain a penalized log-likelihood function. This leads to Ridge regression.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 5",
+      "topic": "Ridge regression"
+    }
+  },
+  {
+    "chunk_id": 96,
+    "document_id": "mit_ml_lecture5",
+    "text": "The parameter estimates are now given by θˆ = (λI + XTX)−1 XT y. The parameter estimates are therefore shrunk towards zero and more so the larger the value of λ.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 5",
+      "topic": "Shrinkage"
+    }
+  },
+  {
+    "chunk_id": 97,
+    "document_id": "mit_ml_lecture5",
+    "text": "This is indeed the benefit from regularization: we can reduce large variance at the cost of introducing a bit of bias.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 5",
+      "topic": "Bias-variance tradeoff"
+    }
+  },
+  {
+    "chunk_id": 98,
+    "document_id": "mit_ml_lecture5",
+    "text": "We can use the expressions for the mean squared error to actively select input points so as to reduce the resulting estimation error. This is an active learning problem.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 5",
+      "topic": "Active learning"
+    }
+  },
+  {
+    "chunk_id": 99,
+    "document_id": "mit_ml_lecture5",
+    "text": "The goal is to get by with as few responses as possible without sacrificing the estimation accuracy. By letting the method guide the selection of the training examples, we will generally need far fewer examples.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 5",
+      "topic": "Active learning goal"
+    }
+  },
+  {
+    "chunk_id": 100,
+    "document_id": "mit_ml_lecture5",
+    "text": "When the choice of inputs is up to us we can select them so as to minimize Tr (XTX)−1. This relies on the underlying relationship between inputs and responses being linear.",
+    "embedding": null,
+    "metadata": {
+      "source": "MIT OpenCourseWare",
+      "course": "6.867 Machine Learning",
+      "lecture": "Lecture 5",
+      "topic": "Optimal input selection"
+    }
+  }
+]
