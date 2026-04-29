@@ -1,6 +1,9 @@
 import numpy as np
 import faiss
-from .base_retriever import BaseRetriever
+try:
+    from .base_retriever import BaseRetriever
+except Exception:
+    from base_retriever import BaseRetriever
 from sentence_transformers import SentenceTransformer
 import torch
 import time
@@ -51,3 +54,24 @@ class DenseRetriever(BaseRetriever):
         elapsed = time.perf_counter() - start  
 
         return results, elapsed 
+
+    def retrieve_chunk_id(self, query, k=5):
+        start = time.perf_counter()
+
+        instruction = "Represent this sentence for searching relevant passages: "
+        query_embedding = self.model.encode([instruction + query]).astype('float32')
+        faiss.normalize_L2(query_embedding)
+
+        distances, indices = self.index.search(query_embedding, k)
+
+        ids = []
+        for i in indices[0]:
+            if i == -1:
+                continue
+            ids.append(int(i))
+            if len(ids) >= k:
+                break
+
+        elapsed = time.perf_counter() - start
+
+        return ids, elapsed
