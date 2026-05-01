@@ -133,7 +133,7 @@ dataset = [
 
 
 # ------------------------------------
-# Replace with YOUR LLM pipeline
+# Replace with  LLM pipeline
 # ------------------------------------
 
 def generate_answer(question):
