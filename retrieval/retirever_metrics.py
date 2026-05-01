@@ -64,34 +64,7 @@ def ndcg_at_k(retrieved, relevant, k):
 # Replace with your real questions
 # ------------------------------------
 
-# dataset = [
-#     {
-#         "question": "What is the dual form of the SVM optimization problem?",
-#         "relevant_chunks": [36, 39, 42]
-#     },
-#     {
-#         "question": "What is boosting and how does it improve classification performance?",
-#         "relevant_chunks": [5]
-#     },
-#     {
-#         "question": "How is the linear regression problem solved using the least squares method?",
-#         "relevant_chunks": [86, 87]
-#     },
 
-#     {
-#         "question": "What is Bayes' rule and how is it applied in classification?",
-#         "relevant_chunks": [58]
-#     },
-
-#      {
-#         "question": "What is the role of the learning rate in stochastic gradient descent?",
-#         "relevant_chunks": [67]
-#     },
-#     {
-#         "question": "What is the impact of Ridge regularization on the bias-variance tradeoff?",
-#         "relevant_chunks": [96, 97]
-#     }
-# ]
 
 dataset = [
     {
@@ -237,3 +210,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
